@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gradients</title>
+  <link rel="stylesheet" type="text/css" href="canvas.css"/>
+</head>
+
+<body style="background-color:white">
+  <canvas id="myCanvas" width="900" height="450">
+  </canvas>
+  <script>
+    canvas = document.getElementById("myCanvas");
+    ctx = canvas.getContext("2d");
+    w = canvas.width;
+    h = canvas.height;
+    bh = h / 10;
+    ypos = 0;
+
+    function draw() {
+      if (ypos == 0) {
+        currColor = randRgb();
+      } else {
+        currColor = updateRgb(currColor);
+      }
+      ctx.fillStyle = rgb(currColor);
+      ctx.clearRect(0, ypos, w, bh);
+      ctx.fillRect(0, ypos, w, bh);
+      ypos = (ypos + bh) % h;
+      console.log(ypos);
+    }
+
+    function pad(number, length) {
+      var str = '' + number;
+      while (str.length < length) {
+          str = '0' + str;
+      }
+      return str;
+    }
+
+    function rgb(rgbVec) {
+      return "rgb(" + rgbVec.join() + ")";
+    }
+
+    function randRgb() {
+      // constrain values
+      var hi = 155;
+      var lo = 100;
+      return [randRange(lo, hi), randRange(lo, hi), randRange(lo, hi)];
+    }
+
+    function updateRgb(rgbVec) {
+      return [updateComp(rgbVec[0]), updateComp(rgbVec[1]), updateComp(rgbVec[2])];
+    }
+
+    function updateComp(n) {
+      // constraint diffs
+      var hi = 30;
+      var lo = -20;
+      return boundRNum(n + randRange(lo, hi));
+    }
+
+    function randRange(lo, hi) {
+      return (Math.random() * hi << 0) + lo;
+    }
+
+    rMax = 255;
+    rMin = 0;
+    function boundRNum(n) {
+      if (n > rMax) {
+        return rMax;
+      } else if (n < rMin) {
+        return rMin;
+      } else {
+        return n;
+      }
+    }
+
+    draw();
+    setInterval(draw,1000);
+  </script>
+</body>
+
+</html>

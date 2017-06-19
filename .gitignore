@@ -1,0 +1,4 @@
+*.tmp
+*.swo
+*.swn
+.DS_STORE
