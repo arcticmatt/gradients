@@ -2,82 +2,15 @@
 <html>
 <head>
   <title>Gradients</title>
-  <link rel="stylesheet" type="text/css" href="canvas.css"/>
+  <link rel="stylesheet" type="text/css" href="main.css"/>
 </head>
 
 <body style="background-color:white">
-  <canvas id="myCanvas" width="900" height="450">
-  </canvas>
-  <script>
-    canvas = document.getElementById("myCanvas");
-    ctx = canvas.getContext("2d");
-    w = canvas.width;
-    h = canvas.height;
-    bh = h / 10;
-    ypos = 0;
-    N = 3;
-
-    function draw() {
-      if (ypos == 0) {
-        setUpdateVals();
-        currColor = randRgb();
-      } else {
-        currColor = updateRgb(currColor);
-      }
-      ctx.fillStyle = rgb(currColor);
-      ctx.clearRect(0, ypos, w, bh);
-      ctx.fillRect(0, ypos, w, bh);
-      ypos = (ypos + bh) % h;
-      console.log(ypos);
-    }
-
-    function pad(number, length) {
-      var str = '' + number;
-      while (str.length < length) {
-          str = '0' + str;
-      }
-      return str;
-    }
-
-    function rgb(rgbVec) {
-      return "rgb(" + rgbVec.join() + ")";
-    }
-
-    function randRgb() {
-      // constrain values
-      var hi = 200;
-      var lo = 70;
-      return [randRange(lo, hi), randRange(lo, hi), randRange(lo, hi)];
-    }
-
-    updateVals = [0, 0, 0];
-    function updateRgb(rgbVec) {
-      for (i = 0; i < N; i++) {
-        rgbVec[i] = boundRNum(rgbVec[i] + updateVals[i]);
-        console.log(rgbVec[i]);
-      }
-      return rgbVec;
-    }
-
-    function setUpdateVals() {
-      lo = 5;
-      hi = 20;
-      for (i = 0; i < N; i++) {
-        updateVals[i] = randRange(lo, hi);
-      }
-    }
-
-    function randRange(lo, hi) {
-      return (Math.random() * hi << 0) + lo;
-    }
-
-    function boundRNum(n) {
-      return n % 256;
-    }
-
-    draw();
-    setInterval(draw,450);
-  </script>
+  <h1>Screensavers</h1>
+  <ul>
+    <li><h2><a href="lines.html">Basic Lines</a></h2></li>
+    <li><h2><a href="lines2.html">Gradual Lines</a></h2></li>    
+  </ul>
 </body>
 
 </html>
