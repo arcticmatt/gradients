@@ -78,7 +78,7 @@ function rgb(rgbVec) {
 function randRgb() {
   // constrain values
   var hi = 200;
-  var lo = 70;
+  var lo = 55;
   return [randRange(lo, hi), randRange(lo, hi), randRange(lo, hi)];
 }
 
@@ -95,17 +95,19 @@ function updateRgb(rgbVec) {
 
 /* Set values in updateVals. */
 function setUpdateVals() {
-  lo = 5;
-  hi = 20;
+  lo = 10;
+  hi = 40;
   for (i = 0; i < N; i++) {
     // updateVals[i] = randRange(lo, hi);
-    updateVals[i] = randRange(lo, hi);
+    var multiplier = randRange(-1, 1);
+    console.log(multiplier);
+    updateVals[i] = multiplier * randRange(lo, hi);
   }
 }
 
 /* Helper function to generate a random number within a range. */
 function randRange(lo, hi) {
-  return (Math.random() * hi << 0) + lo;
+  return (Math.random() * (hi - lo + 1) << 0) + lo;
 }
 
 /*
@@ -113,7 +115,7 @@ function randRange(lo, hi) {
  * that this can be implemented.
  */
 function boundRNum(n) {
-  return n % 256;
+  return mod(n, 256);
 }
 
 
@@ -160,6 +162,12 @@ function swap(arr, i, j) {
   arr[j] = tmp;
 }
 
+/*
+ * Javascript mod is not what I want (for negatives).
+ */
+function mod(n, m) {
+    return ((n % m) + m) % m;
+}
 
 /*
  * Initialize some global variables and choose which screensaver to run.
