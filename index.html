@@ -15,9 +15,11 @@
     h = canvas.height;
     bh = h / 10;
     ypos = 0;
+    N = 3;
 
     function draw() {
       if (ypos == 0) {
+        setUpdateVals();
         currColor = randRgb();
       } else {
         currColor = updateRgb(currColor);
@@ -43,40 +45,38 @@
 
     function randRgb() {
       // constrain values
-      var hi = 155;
-      var lo = 100;
+      var hi = 200;
+      var lo = 70;
       return [randRange(lo, hi), randRange(lo, hi), randRange(lo, hi)];
     }
 
+    updateVals = [0, 0, 0];
     function updateRgb(rgbVec) {
-      return [updateComp(rgbVec[0]), updateComp(rgbVec[1]), updateComp(rgbVec[2])];
+      for (i = 0; i < N; i++) {
+        rgbVec[i] = boundRNum(rgbVec[i] + updateVals[i]);
+        console.log(rgbVec[i]);
+      }
+      return rgbVec;
     }
 
-    function updateComp(n) {
-      // constraint diffs
-      var hi = 30;
-      var lo = -20;
-      return boundRNum(n + randRange(lo, hi));
+    function setUpdateVals() {
+      lo = 5;
+      hi = 20;
+      for (i = 0; i < N; i++) {
+        updateVals[i] = randRange(lo, hi);
+      }
     }
 
     function randRange(lo, hi) {
       return (Math.random() * hi << 0) + lo;
     }
 
-    rMax = 255;
-    rMin = 0;
     function boundRNum(n) {
-      if (n > rMax) {
-        return rMax;
-      } else if (n < rMin) {
-        return rMin;
-      } else {
-        return n;
-      }
+      return n % 256;
     }
 
     draw();
-    setInterval(draw,1000);
+    setInterval(draw,450);
   </script>
 </body>
 
